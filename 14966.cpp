@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const int Esc = 27, gora = 72, dol = 80, lewo = 75, prawo = 77; //deklaracja Esc i kursor體
+const int Esc = 27, gora = 72, dol = 80, lewo = 75, prawo = 77; //deklaracja Esc i kursor贸w
 
 void rysowanie(short os_x, short os_y,short rozmiar_figury, int znak_ascii);
 void put(short os_x, short os_y, int znak_ascii);
@@ -15,8 +15,8 @@ int main()
 
 	_CONSOLE_SCREEN_BUFFER_INFO konsola;
 	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &konsola);
-	short os_x = konsola.dwMaximumWindowSize.X / 2;					//punkt pocz箃kowy (szeroko滄)
-	short os_y = konsola.dwMaximumWindowSize.Y / 10;				//punkt pocz箃kowy (wysoko滄)
+	short os_x = konsola.dwMaximumWindowSize.X / 2;					//punkt pocz膮tkowy (szeroko艣膰)
+	short os_y = konsola.dwMaximumWindowSize.Y / 10;				//punkt pocz膮tkowy (wysoko艣膰)
 
 
 /***************************************************************************************/
@@ -24,15 +24,15 @@ int main()
 
 	cout << "\tAutor: Katarzyna Zakrzewska Gr. 5 nr indeksu: 14966\n\n\nProgram rysuje ksztalt przypominajacy litere W, za pomoca wprowadzonego \nkodu znaku ASCII.\n\n";
 	cout <<	"Figure mozna przesuwac uzywajac strzalek oraz zmieniac jej wielkosc za pomoca \nklawiszy \"+\" i \"-\" \n\n";
-	cout << "W celu wybrania znaku z jakiego ma byc stworzona figura, podaj liczbe calkowita od 1 do 255 (oprocz liczb: 7, 8, 9, 10 i 13) i zatwierdz wybor enterem. \n\n";
+	cout << "W celu wybrania znaku z jakiego ma byc stworzona figura, podaj liczbe calkowita od 1 do 255 (oprocz liczb: 7, 8, 9, 10, 13, 32) i zatwierdz wybor enterem. \n\n";
 	int znak_ascii;
 	cin >> znak_ascii;
 
-		while (cin.fail() || znak_ascii < 0 || znak_ascii > 256 || znak_ascii == 7 || znak_ascii == 8 || znak_ascii == 9 || znak_ascii == 10 || znak_ascii == 13)					
+		while (cin.fail() || znak_ascii < 0 || znak_ascii > 256 || znak_ascii == 7 || znak_ascii == 8 || znak_ascii == 9 || znak_ascii == 10 || znak_ascii == 13 || znak_ascii == 32)					
 		{
-		cin.clear();																											//sprawdzenie poprawno渃i, wykluczenie bia硑ch znak體
+		cin.clear();																											//sprawdzenie poprawno艣ci, wykluczenie bia艂ych znak贸w
 		cin.ignore(1000, '\n');
-		cout << "Bledna wartosc.\n Wprowadz liczbe calkowita od 1 do 255 (oprocz liczb: 7, 8, 9, 10 i 13). \n\n";
+		cout << "Bledna wartosc.\n Wprowadz liczbe calkowita od 1 do 255 (oprocz liczb: 7, 8, 9, 10, 13 i 32). \n\n";
 		cin >> znak_ascii;
 		}
 	cout << "Wybrany znak ASCII to: " << static_cast<char>(znak_ascii)<< "\n\n";
@@ -40,9 +40,9 @@ int main()
 
 	short rozmiar_figury;
 	cout << "Podaj wysokosc figury i zatwierdz wybor enterem.\n";
-	cin >> rozmiar_figury;											// wczytanie rozmiar體 figury
+	cin >> rozmiar_figury;											// wczytanie rozmiar贸w figury
 
-		while (cin.fail() || rozmiar_figury < 4 || rozmiar_figury > os_x)					//sprawdzenie poprawno渃i
+		while (cin.fail() || rozmiar_figury < 4 || rozmiar_figury > os_x)					//sprawdzenie poprawno艣ci
 		{
 		cin.clear();
 		cin.ignore(1000, '\n');
@@ -52,7 +52,7 @@ int main()
 	
 	char klawisz;
 
-/************************ZMIANA ROZMIARU I PO疎NIA************************/
+/************************ZMIANA ROZMIARU I PO艁O呕ENIA************************/
 do {
 	system ("cls");
 	rysowanie(os_x,os_y, rozmiar_figury, znak_ascii);
@@ -64,32 +64,32 @@ do {
 		case '+': 
 					
 			{if (os_x > rozmiar_figury)						// zabezpieczenie
-			{rozmiar_figury ++;	}							// powi阫szanie 						 
+			{rozmiar_figury ++;	}							// powi臋kszanie 						 
             break;}
         
 		
-		case '-': 	{rozmiar_figury --;	break;}				// pomniejszanie
-                     
-		
+		case '-': {if (rozmiar_figury > 4)					//zabezpieczenie
+				 	  {rozmiar_figury--;}
+				  else	{rozmiar_figury = 4;} break;}				// pomniejszanie
 		case lewo: 
 			{ if (os_x > rozmiar_figury)					// zabezpieczenie	
-			{ os_x--; }										// przesuni阠ie w lewo
+			{ os_x--; }										// przesuni臋cie w lewo
 			break; } 
         
 		case prawo: 
 			{ if (os_x < konsola.dwMaximumWindowSize.X-1)		//zabezpieczenie
-			{ os_x++; }											// przesuni阠ie w prawo
+			{ os_x++; }											// przesuni臋cie w prawo
 			break; } 
 		
 		
 		case gora: 
 			{ if (os_y>0)									// zabezpieczenie
-			{ os_y--; }										// przesuni阠ie do g髍y
+			{ os_y--; }										// przesuni臋cie do g贸ry
 			break; }					
         
-		case dol: { os_y++; break; }						// przesuni阠ie w d蟪
+		case dol: { os_y++; break; }						// przesuni臋cie w d贸艂
 		
-		case Esc: { break; }								// wyj渃ie z programu
+		case Esc: { break; }								// wyj艣cie z programu
 	}				
 	
 }	
@@ -134,7 +134,7 @@ void rysowanie(short os_x, short os_y, short rozmiar_figury, int znak_ascii)
 	 
 }
 
-/*********ustalenie wsp蟪rz阣nych i drukowanie***************/
+/*********ustalenie wsp贸艂rz臋dnych i drukowanie***************/
 	
 	void put(short os_x, short os_y, int znak_ascii)
 {
